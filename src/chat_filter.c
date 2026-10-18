@@ -520,7 +520,9 @@ static void __fastcall Hooked_OnChatInputSubmit(
 static void PrepareCloneVtables(void) {
     /* 1. UI Event vtable (0x01440804, RTTI at -4 = 0x01440800) */
     memcpy(g_clone_vtable_ui_event, (const void*)(VTABLE_UI_EVENT_EXPECTED - 4), 6 * sizeof(uint32_t));
-    g_clone_vtable_ui_event[1] = (uint32_t)&Hooked_OnUiEvent;
+    /* Slot 0 is preserved; OnUiEvent is slot 1 (validated below).
+     * The clone includes RTTI at index 0, so slot 1 is index 2. */
+    g_clone_vtable_ui_event[2] = (uint32_t)&Hooked_OnUiEvent;
 
     /* 2. HUD Event vtable (0x0142B794, RTTI at -4 = 0x0142B790) */
     memcpy(g_clone_vtable_hud_event, (const void*)(VTABLE_INGAME_HUD_SUB - 4), 6 * sizeof(uint32_t));
