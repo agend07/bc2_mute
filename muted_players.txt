@@ -1,0 +1,2 @@
+# BC2 Chat Filter - Muted players / keywords (one per line, case-insensitive)
+# In-game chat commands: /mute <name>, /unmute <name>, /mutelist
